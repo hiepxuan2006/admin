@@ -17,8 +17,8 @@ function Login() {
    const [validated, setValidated] = useState(false);
    const { setIsLogin } = useContext(DataContext);
    const [valueForm, setValueForm] = useState({
-      email: '',
-      password: '',
+      email: 'hiepxuan2605@gmail.com',
+      password: '123456',
    });
    const { email, password } = valueForm;
    const history = useHistory();
@@ -46,7 +46,7 @@ function Login() {
                console.log(results);
                localStorage.setItem(TOKEN_NAME, results.token);
                setIsLogin(true);
-               return history.push('/');
+               return history.push('/admin/dashboard');
             } else {
                toast.danger(`${error.message}`);
             }
@@ -122,6 +122,7 @@ function Login() {
                            required
                            name="email"
                            onChange={handleChangeValue}
+                           value="hiepxuan2605@gmail.com"
                         />
                         <Form.Control.Feedback type="invalid">
                            Vui lòng nhập email!
@@ -141,6 +142,7 @@ function Login() {
                            required
                            name="password"
                            onChange={handleChangeValue}
+                           value="123456"
                         />
                         <Form.Control.Feedback type="invalid">
                            Vui lòng nhập password!

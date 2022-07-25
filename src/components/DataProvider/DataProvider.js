@@ -17,10 +17,10 @@ export const DataProvider = (props) => {
          const results = await acountService.checkLogin();
          if (results.success) {
             // localStorage.setItem('user', results.data);
+            setIsLogin(true);
             setUser(results.data);
             console.log(results);
          }
-         setIsLogin(true);
          setLoading(false);
       } catch (error) {
          setIsLogin(false);

@@ -82,10 +82,10 @@ function Header() {
                         className="m-0"
                      >
                         <span className="no-icon">
-                           {isLogin ? user.name : 'Tài khoản'}
+                           {isLogin && user ? user.name : 'Tài khoản'}
                         </span>
                      </Dropdown.Toggle>
-                     {isLogin ? (
+                     {isLogin && user ? (
                         <Dropdown.Menu aria-labelledby="navbarDropdownMenuLink">
                            <Dropdown.Item
                               href="#pablo"
