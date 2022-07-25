@@ -1,11 +1,15 @@
-import React, { Component } from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { Component, useContext } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { Navbar, Container, Nav, Dropdown, Button } from 'react-bootstrap';
 
 import routes from 'routes.js';
+import { DataContext } from 'components/DataProvider';
+import User from 'views/UserProfile';
 
 function Header() {
    const location = useLocation();
+   const { isLogin, user } = useContext(DataContext);
+
    const mobileSidebarToggle = (e) => {
       e.preventDefault();
       document.documentElement.classList.toggle('nav-open');
@@ -77,23 +81,43 @@ function Header() {
                         variant="default"
                         className="m-0"
                      >
-                        <span className="no-icon">Dropdown</span>
+                        <span className="no-icon">
+                           {isLogin ? user.name : 'Tài khoản'}
+                        </span>
                      </Dropdown.Toggle>
-                     <Dropdown.Menu aria-labelledby="navbarDropdownMenuLink">
-                        <Dropdown.Item
-                           href="#pablo"
-                           onClick={(e) => e.preventDefault()}
-                        >
-                           Action
-                        </Dropdown.Item>
-                        <div className="divider"></div>
-                        <Dropdown.Item
-                           href="#pablo"
-                           onClick={(e) => e.preventDefault()}
-                        >
-                           Separated link
-                        </Dropdown.Item>
-                     </Dropdown.Menu>
+                     {isLogin ? (
+                        <Dropdown.Menu aria-labelledby="navbarDropdownMenuLink">
+                           <Dropdown.Item
+                              href="#pablo"
+                              onClick={(e) => e.preventDefault()}
+                           >
+                              {user.name}
+                           </Dropdown.Item>
+                           <div className="divider"></div>
+                           <Dropdown.Item
+                              href="#pablo"
+                              onClick={(e) => e.preventDefault()}
+                           >
+                              Đăng Xuất
+                           </Dropdown.Item>
+                        </Dropdown.Menu>
+                     ) : (
+                        <Dropdown.Menu aria-labelledby="navbarDropdownMenuLink">
+                           <Dropdown.Item
+                              href="#pablo"
+                              onClick={(e) => e.preventDefault()}
+                           >
+                              Action
+                           </Dropdown.Item>
+                           <div className="divider"></div>
+                           <Dropdown.Item
+                              href="#pablo"
+                              onClick={(e) => e.preventDefault()}
+                           >
+                              <Link to="/login">Đăng nhập</Link>
+                           </Dropdown.Item>
+                        </Dropdown.Menu>
+                     )}
                   </Dropdown>
                </Nav>
             </Navbar.Collapse>

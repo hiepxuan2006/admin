@@ -7,6 +7,7 @@ export const DataContext = React.createContext();
 export const DataProvider = (props) => {
    const [isLogin, setIsLogin] = React.useState(false);
    const [loading, setLoading] = React.useState(false);
+   const [user, setUser] = React.useState();
    const checkLogin = async () => {
       if (localStorage[TOKEN_NAME]) {
          httpRequest.setAuthToken(localStorage[TOKEN_NAME]);
@@ -15,7 +16,9 @@ export const DataProvider = (props) => {
          setLoading(true);
          const results = await acountService.checkLogin();
          if (results.success) {
-            localStorage.setItem('user', results.data);
+            // localStorage.setItem('user', results.data);
+            setUser(results.data);
+            console.log(results);
          }
          setIsLogin(true);
          setLoading(false);
@@ -27,9 +30,9 @@ export const DataProvider = (props) => {
    React.useEffect(() => {
       checkLogin();
    }, []);
+   console.log(user);
    // console.log(isLogin);
-
-   const value = { isLogin, loading, setIsLogin };
+   const value = { isLogin, loading, setIsLogin, user };
    return (
       <DataContext.Provider value={value}>
          {props.children}

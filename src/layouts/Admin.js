@@ -53,7 +53,7 @@ function Admin() {
                image={hasImage ? image : ''}
                routes={routes}
             />
-            <div className="main-panel" ref={mainPanel}>
+            <div className="main-panel" style={{}} ref={mainPanel}>
                <AdminNavbar />
                <div className="content">
                   <Switch>{getRoutes(routes)}</Switch>
