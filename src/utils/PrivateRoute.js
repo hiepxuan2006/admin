@@ -1,13 +1,13 @@
 import { DataContext } from 'components/DataProvider';
-import React, { useContext } from 'react';
+import React, { Fragment, useContext } from 'react';
 import { Spinner } from 'react-bootstrap';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import AdminLayout from 'layouts/Admin.js';
 import Login from 'views/Login';
 
-function PrivateRoute({ ...props }) {
+function PrivateRoute({ component: Component, ...rest }) {
    const { isLogin, loading } = useContext(DataContext);
-   console.log(loading);
+   console.log(isLogin);
    if (loading)
       return (
          <>
@@ -17,21 +17,20 @@ function PrivateRoute({ ...props }) {
          </>
       );
    return (
-      <Switch>
-         <Route
-            {...props}
-            render={(props) =>
-               isLogin ? (
-                  <>
-                     <AdminLayout {...props} />
-                  </>
-               ) : (
-                  <Login />
-               )
-            }
-         ></Route>
-         {/* <Route path="/login" render={() => < />} /> */}
-      </Switch>
+      // <Switch>
+      <Route
+         {...rest}
+         render={(props) =>
+            isLogin ? (
+               <>
+                  <Component {...props} {...rest} />
+               </>
+            ) : (
+               <Redirect to="/login" />
+            )
+         }
+      ></Route>
+      // </Switch>
    );
 }
 

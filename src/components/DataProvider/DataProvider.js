@@ -15,9 +15,9 @@ export const DataProvider = (props) => {
          setLoading(true);
          const results = await acountService.checkLogin();
          if (results.success) {
-            setIsLogin(true);
             localStorage.setItem('user', results.data);
          }
+         setIsLogin(true);
          setLoading(false);
       } catch (error) {
          setIsLogin(false);
@@ -27,6 +27,8 @@ export const DataProvider = (props) => {
    React.useEffect(() => {
       checkLogin();
    }, []);
+   // console.log(isLogin);
+
    const value = { isLogin, loading, setIsLogin };
    return (
       <DataContext.Provider value={value}>
