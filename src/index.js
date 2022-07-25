@@ -10,11 +10,7 @@ import './assets/scss/light-bootstrap-dashboard-react.scss?v=2.0.0';
 
 import { DataProvider } from 'components/DataProvider';
 import Notify from 'components/Notify';
-import AdminLayout from 'layouts/Admin.js';
-import Login from 'views/Login';
 import PrivateRoute from 'utils/PrivateRoute';
-import { useContext } from 'react';
-import { DataContext } from 'components/DataProvider';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
