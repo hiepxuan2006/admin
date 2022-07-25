@@ -44,7 +44,7 @@ function Dashboard() {
                            <Col xs="7">
                               <div className="numbers">
                                  <p className="card-category">Revenue</p>
-                                 <Card.Title as="h4">$ 1,345</Card.Title>
+                                 <Card.Title as="h4">$ 1</Card.Title>
                               </div>
                            </Col>
                         </Row>
