@@ -1,8 +1,8 @@
 import axios from 'axios';
 import queryString from 'query-string';
 const httpRequest = axios.create({
-   baseURL: 'http://localhost:8080/api/admin/',
-   // baseURL: 'https://hx-farm.herokuapp.com/api/admin/',
+   // baseURL: 'http://localhost:8080/api/admin/',
+   baseURL: 'https://hx-farm.herokuapp.com/api/admin/',
    // headers: {
    //    'content-type': 'application.json',
 
