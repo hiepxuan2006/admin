@@ -7,7 +7,7 @@ import Login from 'views/Login';
 
 function PrivateRoute({ component: Component, ...rest }) {
    const { isLogin, loading } = useContext(DataContext);
-   console.log(isLogin);
+
    if (loading)
       return (
          <>

@@ -80,9 +80,9 @@ function Category(props) {
                            <thead>
                               <tr>
                                  <th className="border-0">STT</th>
+                                 <th className="border-0">Ảnh</th>
                                  <th className="border-0">ID</th>
                                  <th className="border-0">Tên danh mục</th>
-                                 <th className="border-0">Ảnh</th>
                                  <th className="border-0">Action</th>
                               </tr>
                            </thead>
@@ -94,8 +94,6 @@ function Category(props) {
                                           <td>
                                              {1 + key + limit * (page - 1)}
                                           </td>
-                                          <td>{item.id}</td>
-                                          <td>{item.name}</td>
                                           <td>
                                              <img
                                                 style={{
@@ -106,6 +104,8 @@ function Category(props) {
                                                 alt=""
                                              />
                                           </td>
+                                          <td>{item.id}</td>
+                                          <td>{item.name}</td>
                                           <td>
                                              <Button
                                                 onClick={() => {

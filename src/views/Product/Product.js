@@ -78,10 +78,10 @@ function Product(props) {
                            <thead>
                               <tr>
                                  <th className="border-0">STT</th>
+                                 <th className="border-0">Ảnh đại diện</th>
                                  <th className="border-0">ID</th>
                                  <th className="border-0">Tên sản phẩm</th>
                                  <th className="border-0">Giá sản phẩm</th>
-                                 <th className="border-0">Ảnh đại diện</th>
                                  <th className="border-0">Danh mục</th>
                                  <th className="border-0">Action</th>
                               </tr>
@@ -94,9 +94,6 @@ function Product(props) {
                                           <td>
                                              {1 + key + (page - 1) * limit}
                                           </td>
-                                          <td>{item.id}</td>
-                                          <td>{item.name}</td>
-                                          <td>{item.price}</td>
                                           <td>
                                              <img
                                                 style={{
@@ -107,6 +104,9 @@ function Product(props) {
                                                 alt=""
                                              />
                                           </td>
+                                          <td>{item.id}</td>
+                                          <td>{item.name}</td>
+                                          <td>{item.price}</td>
                                           <td>
                                              {item.Category &&
                                                 item.Category.name}

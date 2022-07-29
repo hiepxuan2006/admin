@@ -11,6 +11,7 @@ import { AddProduct } from 'views/Product';
 import Slider from 'views/Slider';
 import { AddSlider } from 'views/Slider';
 import TableList from 'views/TableList.js';
+import User from 'views/User';
 
 import UserProfile from 'views/UserProfile.js';
 
@@ -24,7 +25,7 @@ const dashboardRoutes = [
    {
       path: '/user',
       name: 'Ds Khách hàng',
-      component: UserProfile,
+      component: User,
       layout: '/admin',
    },
    // danh mục
