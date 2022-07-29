@@ -1,6 +1,14 @@
 import { event } from 'jquery';
 import { useEffect, useState } from 'react';
-import { Card, Col, Container, Form, Row, Table } from 'react-bootstrap';
+import {
+   Button,
+   Card,
+   Col,
+   Container,
+   Form,
+   Row,
+   Table,
+} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import orderService from 'services/orderService';
 import confirmStatusOrder from 'utils/confirmStatusOrder';
@@ -60,18 +68,14 @@ function Order(props) {
                                           </td>
                                           <td>{item.phone}</td>
                                           <td className="d-print-flex">
-                                             <Link
-                                                to={`/admin/don-hang/chi-tiet/${item.id}`}
-                                             >
-                                                {item.Products.map((i, k) => {
-                                                   return (
-                                                      <div key={k}>
-                                                         {i.name} *
-                                                         {i.Order_item.quantity}
-                                                      </div>
-                                                   );
-                                                })}
-                                             </Link>
+                                             {item.Products.map((i, k) => {
+                                                return (
+                                                   <div key={k}>
+                                                      {i.name} *
+                                                      {i.Order_item.quantity}
+                                                   </div>
+                                                );
+                                             })}
                                           </td>
                                           <td>{setVND(item.price_total)}</td>
                                           <td>
@@ -118,6 +122,15 @@ function Order(props) {
                                              <Form.Control.Feedback type="invalid">
                                                 Vui lòng chọn danh mục
                                              </Form.Control.Feedback>
+                                          </td>
+                                          <td>
+                                             <Link
+                                                to={`/admin/don-hang/chi-tiet/${item.id}`}
+                                             >
+                                                <Button>
+                                                   <i class="fas fa-eye"></i>
+                                                </Button>
+                                             </Link>
                                           </td>
                                        </tr>
                                     );

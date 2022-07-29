@@ -47,7 +47,8 @@ function AddCategory(props) {
                return history.push('/admin/danh-muc');
             }
          } catch (error) {
-            toast.danger(`${error.message}`, {
+            setLoading(false);
+            toast.warning(`${error.response.data.message}`, {
                className: 'toast__item',
             });
          }
