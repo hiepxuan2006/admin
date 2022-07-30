@@ -1,19 +1,12 @@
-import Category from 'views/Category';
-import { EditCategory } from 'views/Category';
-import { AddCategory } from 'views/Category';
+import Category, { AddCategory, EditCategory } from 'views/Category';
 import Dashboard from 'views/Dashboard.js';
 import Icons from 'views/Icons.js';
 import Order from 'views/Order';
 import OrderDetail from 'views/Order/OrderDetail';
-import Product from 'views/Product';
-import { EditProduct } from 'views/Product';
-import { AddProduct } from 'views/Product';
-import Slider from 'views/Slider';
-import { AddSlider } from 'views/Slider';
+import Product, { AddProduct, EditProduct } from 'views/Product';
+import Slider, { AddSlider } from 'views/Slider';
 import TableList from 'views/TableList.js';
 import User from 'views/User';
-
-import UserProfile from 'views/UserProfile.js';
 
 const dashboardRoutes = [
    {
