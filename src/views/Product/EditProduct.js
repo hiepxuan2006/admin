@@ -21,6 +21,7 @@ import { toast } from 'react-toastify';
 function EditProduct(props) {
    const [validated, setValidated] = useState(false);
    const [category, setCategory] = useState([]);
+   const [loading, setLoading] = useState(false);
    const [product, setProduct] = useState({});
    const [valueForm, setValueForm] = useState({
       name: '',
@@ -71,17 +72,19 @@ function EditProduct(props) {
       if (imageFile) formData.append('image_path', imageFile);
       if (description) formData.append('content', description);
       try {
+         setLoading(true);
          const results = await productService.updateProduct(formData, id);
-         console.log(results);
+         setLoading(false);
          if (results.success) {
             toast.success(`${results.message}`);
             return history.push('/admin/san-pham');
          }
       } catch (error) {
+         setLoading(false);
          toast.warning(`${error.message}`);
       }
    };
-   console.log(product);
+
    return (
       <div>
          {product && (
@@ -208,9 +211,23 @@ function EditProduct(props) {
                      </div>
                   </Form.Group>
                </Row>
-               <Button className="mt-5" type="submit">
-                  Cập nhật sản phẩm
-               </Button>
+               {loading ? (
+                  <Button
+                     disabled
+                     className="loading"
+                     style={{ width: '180px' }}
+                  >
+                     <i class="fas fa-spinner loading-icon"></i>
+                  </Button>
+               ) : (
+                  <Button
+                     className="mt-5"
+                     type="submit"
+                     style={{ width: '180px' }}
+                  >
+                     Cập nhật sản phẩm
+                  </Button>
+               )}
             </Form>
          )}
       </div>

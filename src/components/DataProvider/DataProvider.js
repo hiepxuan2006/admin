@@ -19,7 +19,6 @@ export const DataProvider = (props) => {
             // localStorage.setItem('user', results.data);
             setIsLogin(true);
             setUser(results.data);
-            console.log(results);
          }
          setLoading(false);
       } catch (error) {
@@ -30,8 +29,7 @@ export const DataProvider = (props) => {
    React.useEffect(() => {
       checkLogin();
    }, []);
-   console.log(user);
-   // console.log(isLogin);
+
    const value = { isLogin, loading, setIsLogin, user };
    return (
       <DataContext.Provider value={value}>

@@ -97,17 +97,15 @@ function AddCategory(props) {
             ''
          )}
 
-         <Button className="mt-5" type="submit" style={{ width: '180px' }}>
-            {loading ? (
-               <>
-                  <div className="loading">
-                     <i class="fas fa-circle-notch loading-icon"></i>
-                  </div>
-               </>
-            ) : (
-               ' Thêm danh mục'
-            )}
-         </Button>
+         {loading ? (
+            <Button disabled className="loading" style={{ width: '180px' }}>
+               <i class="fas fa-spinner loading-icon"></i>
+            </Button>
+         ) : (
+            <Button className="mt-5" type="submit" style={{ width: '180px' }}>
+               Thêm danh mục
+            </Button>
+         )}
       </Form>
    );
 }

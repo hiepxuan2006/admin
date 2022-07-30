@@ -13,7 +13,7 @@
    border-radius: 50%;
    cursor: pointer;
    color: var(--white);
-   animation: spiner 2s linear infinite;
+   animation: spiner 1.5s linear infinite;
    color: #000;
 }
 @keyframes spiner {
@@ -23,4 +23,7 @@
    to {
       transform: rotate(380deg);
    }
+}
+.ck-content {
+   min-height: 350px;
 }

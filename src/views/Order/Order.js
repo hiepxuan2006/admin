@@ -16,16 +16,22 @@ import { OrderStatus } from 'utils/Contants';
 import { setVND } from 'utils/curentVND';
 function Order(props) {
    const [order, setOrder] = useState([]);
+   const [load, setLoad] = useState(false);
+   const [loading, setLoading] = useState(false);
 
    useEffect(() => {
       const fetchApi = async () => {
          try {
+            setLoading(true);
             const results = await orderService.getAllOrder();
+            setLoading(false);
             setOrder(results.data);
-         } catch (error) {}
+         } catch (error) {
+            setLoading(false);
+         }
       };
       fetchApi();
-   }, []);
+   }, [load]);
    const handleChaneStatus = (e, id) => {
       const stt = e.target.value;
 
@@ -38,11 +44,48 @@ function Order(props) {
             <Row>
                <Col md="12">
                   <Card className="strpied-tabled-with-hover">
-                     <Card.Header>
-                        <Card.Title as="h4">Danh sách đơn hàng</Card.Title>
+                     <Card.Header className="d-flex align-items-center justify-content-between">
+                        <div className="d-flex align-items-center">
+                           <Card.Title as="h4">Danh sách đơn hàng</Card.Title>
+                           <Button className="btn-simple btn-icon ml-3 btn-light loading">
+                              {loading ? (
+                                 <i
+                                    className="fas fa-redo-alt loading-icon"
+                                    style={{ cursor: 'pointer' }}
+                                 ></i>
+                              ) : (
+                                 <i
+                                    onClick={() => {
+                                       setOrder([]);
+                                       setLoad(!load);
+                                    }}
+                                    className="fas fa-redo-alt "
+                                    style={{
+                                       cursor: 'pointer',
+                                       fontSize: '20px',
+                                       color: '#000',
+                                    }}
+                                 ></i>
+                              )}
+                           </Button>
+                        </div>
+                        <div className="ml-3">
+                           <select
+                              class="custom-select"
+                              // onChange={handleChangCtate}
+                           >
+                              <option value="" selected>
+                                 Tình trạng đơn hàng
+                              </option>
+                              <option>Đơn mới</option>
+                              <option>Đang gói hàng</option>
+                              <option>Đang giao hàng</option>
+                              <option>Đã giao hàng</option>
+                           </select>
+                        </div>
                      </Card.Header>
                      <Card.Body className="table-full-width table-responsive px-0">
-                        <Table className="table-hover table-striped">
+                        <Table className="table-hover ">
                            <thead>
                               <tr>
                                  <th className="border-0">STT</th>
