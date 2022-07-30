@@ -8,18 +8,24 @@ function User() {
    const [isProfile, setIsProfile] = useState(false);
    const [listUser, setListUser] = useState([]);
    const [userItem, setUserItem] = useState({});
-
+   const [load, setLoad] = useState(false);
+   const [loading, setLoading] = useState(false);
    useEffect(() => {
       const fetchApi = async () => {
          try {
+            setLoading(true);
             const results = await userService.getListUser();
+            setLoading(false);
+
             if (results.success) {
                setListUser(results.data);
             }
-         } catch (error) {}
+         } catch (error) {
+            setLoading(false);
+         }
       };
       fetchApi();
-   }, []);
+   }, [load]);
    const handleView = (e, id) => {
       e.preventDefault();
       console.log(listUser[id]);
@@ -33,8 +39,26 @@ function User() {
             <Row>
                <Col md="12" className={isProfile ? 'd-none' : ''}>
                   <Card>
-                     <Card.Header>
+                     <Card.Header className="d-flex">
                         <Card.Title as="h4">Danh sách khách hàng</Card.Title>
+                        <Button className="btn-simple btn-icon ml-3 btn-light loading">
+                           {loading ? (
+                              <i
+                                 className="fas fa-redo-alt loading-icon"
+                                 style={{ cursor: 'pointer' }}
+                              ></i>
+                           ) : (
+                              <i
+                                 onClick={() => setLoad(!load)}
+                                 className="fas fa-redo-alt "
+                                 style={{
+                                    cursor: 'pointer',
+                                    fontSize: '20px',
+                                    color: '#000',
+                                 }}
+                              ></i>
+                           )}
+                        </Button>
                      </Card.Header>
                      <Card.Body>
                         <Table className="table-hover table-striped">
@@ -119,7 +143,7 @@ function User() {
                   </Card.Title>
 
                   <Card.Body>
-                     <Table className="table-hover table-striped">
+                     <Table className="table-hover ">
                         <thead>
                            <tr>
                               <th className="border-0">STT</th>

@@ -1,21 +1,13 @@
 import Pagination from 'components/Pagination';
-import React, { useEffect, useState } from 'react';
-import {
-   Badge,
-   Button,
-   Card,
-   Navbar,
-   Nav,
-   Table,
-   Container,
-   Row,
-   Col,
-} from 'react-bootstrap';
+import { useEffect, useState } from 'react';
+import { Button, Card, Col, Container, Row, Table } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import categoryServices from 'services/categoryServices';
-import { BaseUrl } from 'utils/Contants';
 import confirmDelete from 'utils/confirmDelete';
+import { BaseUrl } from 'utils/Contants';
 function Category(props) {
+   const [load, setLoad] = useState(false);
+   const [loading, setLoading] = useState(false);
    const [pagination, setPagination] = useState({
       page: 1,
       limit: 1,
@@ -46,18 +38,23 @@ function Category(props) {
 
    useEffect(() => {
       const fethApi = async () => {
-         const params = { page: page, limit: 8 };
-
-         const results = await categoryServices.getAllCategory(params);
-         setData(results.data);
-         setPagination({
-            ...pagination,
-            limit: results.limit,
-            totalRows: results.totalRows,
-         });
+         try {
+            const params = { page: page, limit: 8 };
+            setLoading(true);
+            const results = await categoryServices.getAllCategory(params);
+            setLoading(false);
+            setData(results.data);
+            setPagination({
+               ...pagination,
+               limit: results.limit,
+               totalRows: results.totalRows,
+            });
+         } catch (error) {
+            setLoading(false);
+         }
       };
       fethApi();
-   }, [page]);
+   }, [page, load]);
 
    return (
       <>
@@ -71,12 +68,33 @@ function Category(props) {
                               Thêm danh mục
                            </Link>
                         </Button>
-                        <Card.Header>
+                        <Card.Header className="d-flex">
                            <Card.Title as="h4">Danh mục sản phẩm</Card.Title>
+                           <Button className="btn-simple btn-icon ml-3 btn-light loading">
+                              {loading ? (
+                                 <i
+                                    className="fas fa-redo-alt loading-icon"
+                                    style={{ cursor: 'pointer' }}
+                                 ></i>
+                              ) : (
+                                 <i
+                                    onClick={() => {
+                                       setData([]);
+                                       setLoad(!load);
+                                    }}
+                                    className="fas fa-redo-alt "
+                                    style={{
+                                       cursor: 'pointer',
+                                       fontSize: '20px',
+                                       color: '#000',
+                                    }}
+                                 ></i>
+                              )}
+                           </Button>
                         </Card.Header>
                      </div>
                      <Card.Body className="table-full-width table-responsive px-0">
-                        <Table className="table-hover table-striped">
+                        <Table className="table-hover ">
                            <thead>
                               <tr>
                                  <th className="border-0">STT</th>

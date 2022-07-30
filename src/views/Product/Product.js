@@ -1,23 +1,17 @@
 import Pagination from 'components/Pagination';
-import React, { useState } from 'react';
-import { useEffect } from 'react';
-import {
-   Badge,
-   Button,
-   Card,
-   Navbar,
-   Nav,
-   Table,
-   Container,
-   Row,
-   Col,
-} from 'react-bootstrap';
+import { useEffect, useState } from 'react';
+import { Button, Card, Col, Container, Row, Table } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import categoryServices from 'services/categoryServices';
 import productService from 'services/productService';
 import confirmDelete from 'utils/confirmDelete';
 import { BaseUrl } from 'utils/Contants';
 function Product(props) {
    const [data, setData] = useState([]);
+   const [load, setLoad] = useState(false);
+   const [loading, setLoading] = useState(false);
+   const [category, setCategory] = useState([]);
+   const [categoryId, setCategoryId] = useState('');
    const [pagination, setPagination] = useState({
       page: 1,
       limit: 1,
@@ -43,20 +37,42 @@ function Product(props) {
          }
       } catch (error) {}
    };
+   categoryId;
    useEffect(() => {
       const fethApi = async () => {
-         const params = { page: page, limit: 8 };
-         const results = await productService.getAll(params);
-
-         setData(results.data);
-         setPagination({
-            ...pagination,
-            limit: results.limit,
-            totalRows: results.totalRows,
-         });
+         try {
+            const params = categoryId
+               ? { page: page, limit: 8, categoryId: categoryId }
+               : { page: page, limit: 8 };
+            setLoading(true);
+            const results = await productService.getAll(params);
+            setLoading(false);
+            setData(results.data);
+            setPagination({
+               ...pagination,
+               limit: results.limit,
+               totalRows: results.totalRows,
+            });
+         } catch (error) {
+            setLoading(false);
+         }
       };
       fethApi();
+   }, [load, categoryId]);
+
+   useEffect(() => {
+      const fetchApi = async () => {
+         try {
+            const results = await categoryServices.getAllCategory('');
+            setCategory(results.data);
+         } catch (error) {}
+      };
+      fetchApi();
    }, []);
+   const handleChangCtate = (e) => {
+      setCategoryId(e.target.value);
+      setData([]);
+   };
    return (
       <>
          <Container fluid>
@@ -69,12 +85,55 @@ function Product(props) {
                               Thêm sản phẩm mới
                            </Link>
                         </Button>
-                        <Card.Header>
-                           <Card.Title as="h4">Danh sách sản phẩm</Card.Title>
+                        <Card.Header className="d-flex align-items-center justify-content-between">
+                           <div className="d-flex align-items-center">
+                              <Card.Title as="h4">
+                                 Danh sách sản phẩm
+                              </Card.Title>
+                              <Button className="btn-simple btn-icon ml-3 btn-light loading">
+                                 {loading ? (
+                                    <i
+                                       className="fas fa-redo-alt loading-icon"
+                                       style={{ cursor: 'pointer' }}
+                                    ></i>
+                                 ) : (
+                                    <i
+                                       onClick={() => {
+                                          setData([]);
+                                          setLoad(!load);
+                                       }}
+                                       className="fas fa-redo-alt "
+                                       style={{
+                                          cursor: 'pointer',
+                                          fontSize: '20px',
+                                          color: '#000',
+                                       }}
+                                    ></i>
+                                 )}
+                              </Button>
+                           </div>
+                           <div className="ml-3">
+                              <select
+                                 class="custom-select"
+                                 onChange={handleChangCtate}
+                              >
+                                 <option value="" selected>
+                                    Danh mục sản phẩm
+                                 </option>
+                                 {category &&
+                                    category.map((item, key) => {
+                                       return (
+                                          <option key={key} value={item.id}>
+                                             {item.name}
+                                          </option>
+                                       );
+                                    })}
+                              </select>
+                           </div>
                         </Card.Header>
                      </div>
                      <Card.Body className="table-full-width table-responsive px-0">
-                        <Table className="table-hover table-striped">
+                        <Table className="table-hover ">
                            <thead>
                               <tr>
                                  <th className="border-0">STT</th>
