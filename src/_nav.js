@@ -1,13 +1,3 @@
-import Category from 'views/Category';
-import Dashboard from 'views/Dashboard.js';
-import Icons from 'views/Icons.js';
-import Order from 'views/Order';
-import Product from 'views/Product';
-import Slider from 'views/Slider';
-import TableList from 'views/TableList.js';
-
-import UserProfile from 'views/UserProfile.js';
-
 const _nav = [
    {
       path: '/dashboard',
