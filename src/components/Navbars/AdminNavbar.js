@@ -1,10 +1,9 @@
-import React, { Component, useContext } from 'react';
+import { useContext } from 'react';
+import { Button, Container, Dropdown, Nav, Navbar } from 'react-bootstrap';
 import { Link, useLocation } from 'react-router-dom';
-import { Navbar, Container, Nav, Dropdown, Button } from 'react-bootstrap';
 
-import routes from 'routes.js';
 import { DataContext } from 'components/DataProvider';
-import User from 'views/UserProfile';
+import routes from 'routes.js';
 
 function Header() {
    const location = useLocation();
