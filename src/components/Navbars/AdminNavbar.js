@@ -65,7 +65,7 @@ function Header() {
                         className="m-0"
                      >
                         <i className="nc-icon nc-palette"></i>
-                        <span className="d-lg-none ml-1">Dashboard</span>
+                        <span className="d-lg-none ml-1">Admin store</span>
                      </Nav.Link>
                   </Nav.Item>
                </Nav>
