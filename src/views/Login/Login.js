@@ -44,9 +44,9 @@ function Login() {
                         className: 'toast__item',
                     });
                     console.log(results);
-                    localStorage.setItem(TOKEN_NAME, results.data.token);
+                    localStorage.setItem(TOKEN_NAME, results.token);
                     setIsLogin(true);
-                    setUser(results.data.name);
+                    setUser(results.name);
                     return history.push('/admin/dashboard');
                 } else {
                     toast.danger(`${error.message}`);
@@ -54,7 +54,7 @@ function Login() {
             } catch (error) {
                 console.log(error);
                 setLoading(false);
-                toast.warning(`${error.response.data.message}`);
+                toast.warning(`${error.response.message}`);
             }
         }
     };
