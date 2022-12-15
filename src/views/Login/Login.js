@@ -17,7 +17,7 @@ function Login() {
     const [validated, setValidated] = useState(false);
     const { setIsLogin } = useContext(DataContext);
     const [valueForm, setValueForm] = useState({
-        email: 'hiepxuan2605@gmail.com',
+        email: '',
         password: '123456',
     });
     const { email, password } = valueForm;
@@ -43,8 +43,8 @@ function Login() {
                     toast.success(`${results.message}`, {
                         className: 'toast__item',
                     });
-                    console.log(results);
                     localStorage.setItem(TOKEN_NAME, results.data.token);
+                    localStorage.setItem('roles', 'admin');
                     setIsLogin(true);
                     setUser(results.data.name);
                     return history.push('/admin/dashboard');
@@ -126,7 +126,7 @@ function Login() {
                                     required
                                     name="email"
                                     onChange={handleChangeValue}
-                                    value="hiepxuan2605@gmail.com"
+                                    // value="hiepxuan2605@gmail.com"
                                 />
                                 <Form.Control.Feedback type="invalid">
                                     Vui lòng nhập email!
